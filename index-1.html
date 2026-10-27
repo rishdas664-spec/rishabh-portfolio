@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101010" />
+  <meta name="description" content="Rishabh is a video editor focused on educational and valuable content, with clean cuts, captions, motion graphics, and engaging visuals." />
+  <title>Rishabh | Video Editor</title>
+  <style>
+    :root {
+      --bg: #101010;
+      --panel: #171717;
+      --panel-2: #202020;
+      --text: #f5f5f5;
+      --muted: #b5b5b5;
+      --accent: #dfff00;
+      --line: rgba(223,255,0,.24);
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .accent { color: var(--accent); }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .18em; font-size: .76rem; font-weight: 800; }
+    .section { padding: 90px 0; }
+    .section-heading { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; letter-spacing: -.045em; }
+    .section-intro { color: var(--muted); max-width: 620px; margin: 0 0 34px; }
+    .nav-wrap { position: sticky; top: 0; z-index: 10; background: rgba(16,16,16,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,.07); }
+    nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.12rem; font-weight: 900; letter-spacing: -.04em; min-width: 0; }
+    .brand-logo { width: 48px; height: 48px; object-fit: cover; border-radius: 50%; border: 2px solid var(--accent); background: var(--panel-2); flex: 0 0 auto; }
+    .brand-copy { display: flex; flex-direction: column; line-height: 1.15; gap: 4px; }
+    .brand-name { color: var(--text); }
+    .brand-role { color: var(--accent); font-size: .76rem; font-weight: 750; letter-spacing: .02em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 24px; align-items: center; color: #dedede; font-size: .9rem; }
+    .nav-links a:hover { color: var(--accent); }
+    .menu-button { display: none; border: 1px solid var(--line); background: transparent; color: var(--accent); padding: 8px 11px; border-radius: 10px; font-size: 1rem; }
+    .hero { min-height: 670px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 50px; padding-top: 64px; padding-bottom: 70px; }
+    .hero h1 { font-size: clamp(3.3rem, 8vw, 6.6rem); line-height: .95; letter-spacing: -.075em; margin: 18px 0 20px; }
+    .hero h1 span { display: block; color: var(--accent); }
+    .hero p { max-width: 540px; color: var(--muted); font-size: 1.08rem; margin: 0 0 28px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 19px; border-radius: 10px; border: 1px solid var(--accent); font-weight: 800; transition: transform .2s, background .2s; }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--accent); color: #111; }
+    .btn-secondary { background: transparent; color: var(--text); }
+    .hero-card { border: 1px solid var(--line); background: radial-gradient(circle at 75% 20%, rgba(223,255,0,.13), transparent 34%), var(--panel); padding: 26px; border-radius: 24px; position: relative; overflow: hidden; min-height: 390px; display: flex; flex-direction: column; justify-content: space-between; }
+    .hero-card::after { content: ""; position: absolute; width: 220px; height: 220px; border: 1px solid rgba(223,255,0,.25); border-radius: 50%; right: -70px; bottom: -80px; box-shadow: 0 0 0 24px rgba(223,255,0,.025), 0 0 0 48px rgba(223,255,0,.02); }
+    .play-symbol { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 22px; background: var(--accent); color: #111; font-size: 2rem; box-shadow: 0 0 50px rgba(223,255,0,.12); }
+    .hero-card h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.05; max-width: 320px; margin: 0 0 12px; letter-spacing: -.05em; }
+    .hero-card p { margin: 0; font-size: .94rem; }
+    .mini-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); font-weight: 800; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 42px; }
+    .stat { border-top: 1px solid var(--line); padding-top: 13px; }
+    .stat strong { display: block; font-size: 1.3rem; }
+    .stat span { font-size: .8rem; color: var(--muted); }
+    .work-grid, .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project, .service, .about-card { border: 1px solid rgba(255,255,255,.09); background: var(--panel); border-radius: 18px; overflow: hidden; }
+    .project-art { aspect-ratio: 4 / 3; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(135deg, #282828, #111); position: relative; overflow: hidden; }
+    .project-art::before { content: ""; position: absolute; width: 190px; height: 190px; border-radius: 50%; background: rgba(223,255,0,.13); filter: blur(1px); right: -40px; top: -50px; }
+    .project-art::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(223,255,0,.15); border-radius: 12px; }
+    .project-art > * { position: relative; z-index: 1; }
+    .project-art .tag { color: var(--accent); font-size: .72rem; text-transform: uppercase; letter-spacing: .15em; font-weight: 800; }
+    .project-art strong { font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1; max-width: 240px; letter-spacing: -.05em; }
+    .project-info { padding: 18px; }
+    .project-info h3 { margin: 0 0 6px; font-size: 1.08rem; }
+    .project-info p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .note { margin-top: 18px; padding: 14px 16px; border-left: 3px solid var(--accent); background: rgba(223,255,0,.055); color: var(--muted); border-radius: 0 10px 10px 0; font-size: .9rem; }
+    .service { padding: 24px; }
+    .service-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; background: rgba(223,255,0,.1); border: 1px solid var(--line); color: var(--accent); font-size: 1.3rem; margin-bottom: 22px; }
+    .service h3 { margin: 0 0 8px; font-size: 1.15rem; }
+    .service p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .about-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; align-items: stretch; }
+    .about-card { padding: 28px; }
+    .about-mark { display: grid; place-items: center; min-height: 260px; background: radial-gradient(circle, rgba(223,255,0,.14), transparent 60%), var(--panel); border: 1px solid var(--line); border-radius: 18px; }
+    .about-mark span { font-size: clamp(4rem, 10vw, 7rem); font-weight: 950; letter-spacing: -.1em; color: var(--accent); }
+    .about-card h3 { font-size: 1.6rem; margin: 0 0 12px; }
+    .about-card p { color: var(--muted); margin: 0 0 14px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .pill { border: 1px solid rgba(255,255,255,.12); border-radius: 99px; padding: 7px 11px; font-size: .8rem; color: #dedede; }
+    .contact-box { border: 1px solid var(--line); background: radial-gradient(circle at 100% 0, rgba(223,255,0,.1), transparent 35%), var(--panel); border-radius: 24px; padding: clamp(24px, 5vw, 52px); display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+    .contact-box h2 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.05; letter-spacing: -.06em; }
+    .contact-box p { margin: 0; max-width: 600px; color: var(--muted); }
+    footer { padding: 26px 0; border-top: 1px solid rgba(255,255,255,.08); color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 820px) {
+      .hero { min-height: auto; grid-template-columns: 1fr; gap: 30px; padding-top: 70px; }
+      .hero-card { min-height: 310px; }
+      .work-grid, .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-layout { grid-template-columns: 1fr; }
+      .about-mark { min-height: 190px; }
+      .contact-box { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(var(--max), calc(100% - 28px)); }
+      .section { padding: 66px 0; }
+      nav { min-height: 64px; flex-wrap: wrap; }
+      .menu-button { display: block; }
+      .nav-links { display: none; width: 100%; padding: 0 0 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .nav-links.open { display: flex; }
+      .hero { padding-top: 54px; }
+      .hero h1 { font-size: clamp(3.1rem, 16vw, 5rem); }
+      .stats { gap: 8px; }
+      .stat strong { font-size: 1.05rem; }
+      .stat span { font-size: .72rem; }
+      .work-grid, .service-grid { grid-template-columns: 1fr; }
+      .project-art { aspect-ratio: 16 / 10; }
+      .actions .btn { flex: 1 1 auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Rishabh Video Editor home">
+        <img class="brand-logo" src="logo.jpg" alt="Rishabh's logo" />
+        <span class="brand-copy"><span class="brand-name">Rishabh</span><span class="brand-role">Video Editor</span></span>
+      </a>
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#work">My Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow">Educational · Valuable Content</div>
+        <h1>Rishabh <span>Video Editor.</span></h1>
+        <p>I edit educational and valuable content into clear, engaging videos with clean cuts, dynamic captions, motion graphics, and visuals that help ideas stand out.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#work">View My Work <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-secondary" href="#contact">Contact Me</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>Learn</strong><span>Educational content</span></div>
+          <div class="stat"><strong>Explain</strong><span>Valuable ideas</span></div>
+          <div class="stat"><strong>Engage</strong><span>Captions & visuals</span></div>
+        </div>
+      </div>
+      <div class="hero-card reveal">
+        <div class="play-symbol" aria-hidden="true">▶</div>
+        <div>
+          <div class="mini-label">Ideas made easier to understand</div>
+          <h2>Make knowledge <span class="accent">engaging.</span></h2>
+          <p>Clean editing. Clear storytelling. Valuable content that holds attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="eyebrow">Selected Projects</div>
+        <h2 class="section-heading">My <span class="accent">Work.</span></h2>
+        <p class="section-intro">This section is ready for your educational and valuable-content edits. Add your real video links whenever you are ready.</p>
+        <div class="work-grid">
+          <article class="project reveal">
+            <div class="project-art"><span class="tag">01 / Educational</span><strong>Learn <span class="accent">Something</span></strong><span class="tag">Captions · Cuts · Visuals</span></div>
+            <div class="project-info"><h3>Educational Reel</h3><p>Use this space for a real educational edit. Video can be added later.</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project-art"><span class="tag">02 / Knowledge</span><strong>Knowledge <span class="accent">Short</span></strong><span class="tag">Motion · Visuals · Pace</span></div>
+            <div class="project-info"><h3>Valuable Content</h3><p>Show an edit that explains a useful idea in a clear way.</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project-art"><span class="tag">03 / Explainer</span><strong>Visual <span class="accent">Explainer</span></strong><span class="tag">Hook · Captions · Audio</span></div>
+            <div class="project-info"><h3>Explainer Video</h3><p>A space for your next sample. Add its playable video link whenever ready.</p></div>
+          </article>
+        </div>
+        <div class="note">These are portfolio placeholders, not real client projects yet. When your edits are ready, we can add playable video links here without rebuilding the whole website.</div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="eyebrow">What I Do</div>
+        <h2 class="section-heading">Editing <span class="accent">Services.</span></h2>
+        <p class="section-intro">Editing for educational and valuable content that feels clear, polished, and easy to follow.</p>
+        <div class="service-grid">
+          <article class="service reveal"><div class="service-icon">▣</div><h3>Educational Reels</h3><p>Clean cuts, readable captions, and visuals that make ideas easier to understand.</p></article>
+          <article class="service reveal"><div class="service-icon">▶</div><h3>Valuable Shorts</h3><p>Short edits with a clear hook, smooth pacing, and helpful on-screen text.</p></article>
+          <article class="service reveal"><div class="service-icon">✦</div><h3>Knowledge & Tech Videos</h3><p>Supporting visuals, motion graphics, and sound design for informative content.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="eyebrow">A Little About Me</div>
+        <h2 class="section-heading">Meet <span class="accent">Rishabh.</span></h2>
+        <div class="about-layout">
+          <div class="about-mark reveal" aria-label="Rishabh initials"><span>R.</span></div>
+          <div class="about-card reveal">
+            <h3>Educational content, made <span class="accent">engaging.</span></h3>
+            <p>I'm Rishabh, a video editor focused on educational and valuable content. I use clean cuts, captions, audio, and supporting visuals to make information easier to follow.</p>
+            <p>I'm building my portfolio and open to suitable editing projects. If you create content that teaches or informs, let's work together.</p>
+            <div class="pills"><span class="pill">CapCut</span><span class="pill">Educational Editing</span><span class="pill">Captions</span><span class="pill">Audio</span><span class="pill">Motion Graphics</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-box reveal">
+          <div>
+            <div class="eyebrow">Have a Project?</div>
+            <h2>Let's make your next video <span class="accent">better.</span></h2>
+            <p>Need an editor for educational or valuable content? Message me with your idea and requirements.</p>
+          </div>
+          <div class="actions">
+            <!-- Replace the # links below with your real Instagram profile and email/WhatsApp. -->
+            <a class="btn btn-primary" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram DM ↗</a>
+            <a class="btn btn-secondary" href="mailto:your.email@example.com">Email Me ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Rishabh · Video Editor</span>
+      <span>Built with focus <span class="accent">✦</span></span>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.textContent = isOpen ? 'Close ✕' : 'Menu ☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.textContent = 'Menu ☰';
+      });
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
